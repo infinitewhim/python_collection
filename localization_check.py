@@ -10,7 +10,7 @@ import time
 #time.sleep(1)
 
 #base directory for searching, hardcoded for now
-base_dir = 'C:\\Users\\I328340\\git\\zen.main\\rt\\appl.components'
+base_dir = 'C:\\Users\\xxx'
 
 
 #get all directories which contain localization properties file (excluding "test")
@@ -31,7 +31,7 @@ for dir_to_check in dirlist_to_check:
 
 	#read localization_properties file to get the reference KV pairs in that specific directory
 	ref_kv = {}
-	with open(dir_to_check+'\\'+'localization.properties','r') as f:
+	with open(dir_to_check + os.sep + 'localization.properties','r') as f:
 	    lines = f.readlines()
 	    for line in lines:
 	    	#search for uncommented lines which contains "=" pair 
@@ -56,7 +56,7 @@ for dir_to_check in dirlist_to_check:
 	if(properties_files_list):
 		for language_file in properties_files_list:
 			ref_kv_copy = ref_kv.copy()
-			with open(dir_to_check+'\\'+language_file,'r') as f:
+			with open(dir_to_check+ os.sep + language_file,'r') as f:
 			    lines = f.readlines()
 			    for line in lines:
 			    	#search for uncommented lines which contains "=" pair 
@@ -66,11 +66,11 @@ for dir_to_check in dirlist_to_check:
 			    			del ref_kv_copy[kv[0].strip()]
 			    		except KeyError:
 			    			pass
-			    			#print('\''+kv[0]+'\'' + '  in ' +dir_to_check+'\\'+ language_file + ' does not exist in the reference')
+			    			#print('\''+kv[0]+'\'' + '  in ' +dir_to_check+ os.sep + language_file + ' does not exist in the reference')
 			    			#print('----------------------------------------------------------------')
 			if(ref_kv_copy):
 				for missing_key in ref_kv_copy:
-					print('\'' + missing_key + '\'' + ' is missing in '+dir_to_check+'\\'+ language_file )
+					print('\'' + missing_key + '\'' + ' is missing in '+dir_to_check+ os.sep + language_file )
 					print('----------------------------------------------------------------')
 		
 		
