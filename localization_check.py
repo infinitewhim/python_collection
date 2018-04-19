@@ -4,13 +4,14 @@
 import re
 import os
 import time
+import sys
 
 #start
 #print('checking localization properties: ')
 #time.sleep(1)
 
-#base directory for searching, hardcoded for now
-base_dir = 'C:\\Users\\xxx'
+#base directory for searching, script will be integrated with Jenkins.   python /var/jenkins_home/localization_check.py $WORKSPACE
+base_dir = sys.argv[1]
 
 
 #get all directories which contain localization properties file (excluding "test")
@@ -70,7 +71,7 @@ for dir_to_check in dirlist_to_check:
 			    			#print('----------------------------------------------------------------')
 			if(ref_kv_copy):
 				for missing_key in ref_kv_copy:
-					print('\'' + missing_key + '\'' + ' is missing in '+dir_to_check+ os.sep + language_file )
+					print('\'' + missing_key + '\'' + ' is missing in '+dir_to_check.replace(base_dir,'')+ os.sep + language_file )
 					print('----------------------------------------------------------------')
 		
 		
